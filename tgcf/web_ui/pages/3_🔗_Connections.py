@@ -110,4 +110,5 @@ if check_password(st):
 
     if st.button("Save"):
         write_config(CONFIG)
+    if st.button("Reconnect / Reload"):
         st.experimental_rerun()
