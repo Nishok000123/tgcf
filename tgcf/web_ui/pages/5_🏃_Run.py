@@ -101,7 +101,7 @@ if check_password(st):
         time.sleep(2)
 
     if st.button("Restart Forwarding"):
-    st.experimental_rerun()
+        st.experimental_rerun()
 
     try:
         lines = st.slider(
