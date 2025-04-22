@@ -100,7 +100,8 @@ if check_password(st):
         write_config(CONFIG)
         time.sleep(2)
 
-        st.experimental_rerun()
+    if st.button("Restart Forwarding"):
+    st.experimental_rerun()
 
     try:
         lines = st.slider(
