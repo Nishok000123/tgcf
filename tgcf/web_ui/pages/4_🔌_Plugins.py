@@ -6,7 +6,13 @@ import yaml
 from tgcf.config import CONFIG, read_config, write_config
 from tgcf.plugin_models import FileType, Replace, Style
 from tgcf.web_ui.password import check_password
-from tgcf.web_ui.utils import get_list, get_string, hide_st, switch_theme
+from tgcf.web_ui.utils import (
+    apply_base_style,
+    get_list,
+    get_string,
+    hide_st,
+    switch_theme,
+)
 
 CONFIG = read_config()
 
@@ -16,7 +22,8 @@ st.set_page_config(
 )
 
 hide_st(st)
-switch_theme(st,CONFIG)
+apply_base_style(st)
+switch_theme(st, CONFIG)
 if check_password(st):
 
     with st.expander("Filter"):
@@ -164,14 +171,24 @@ if check_password(st):
         )
 
     with st.expander("Sender"):
-        st.write("Modify the sender of forwarded messages other than the current user/bot")
-        st.warning("Show 'Forwarded from' option must be disabled or else messages will not be sent",icon="⚠️")
+        st.write(
+            "Modify the sender of forwarded messages other than the current user/bot"
+        )
+        st.warning(
+            "Show 'Forwarded from' option must be disabled or else messages will not be sent",
+            icon="⚠️",
+        )
         CONFIG.plugins.sender.check = st.checkbox(
             "Set sender to:", value=CONFIG.plugins.sender.check
         )
-        leftpad,content,rightpad = st.columns([0.05,0.9,0.05])
+        leftpad, content, rightpad = st.columns([0.05, 0.9, 0.05])
         with content:
-            user_type = st.radio("Account Type", ["Bot", "User"], index=CONFIG.plugins.sender.user_type,horizontal=True)
+            user_type = st.radio(
+                "Account Type",
+                ["Bot", "User"],
+                index=CONFIG.plugins.sender.user_type,
+                horizontal=True,
+            )
             if user_type == "Bot":
                 CONFIG.plugins.sender.user_type = 0
                 CONFIG.plugins.sender.BOT_TOKEN = st.text_input(
@@ -180,10 +197,12 @@ if check_password(st):
             else:
                 CONFIG.plugins.sender.user_type = 1
                 CONFIG.plugins.sender.SESSION_STRING = st.text_input(
-                    "Session String", CONFIG.plugins.sender.SESSION_STRING, type="password"
+                    "Session String",
+                    CONFIG.plugins.sender.SESSION_STRING,
+                    type="password",
                 )
                 st.markdown(
-                """
+                    """
                 ###### How to get session string?
 
                 Link to repl: https://replit.com/@aahnik/tg-login?v=1
@@ -203,8 +222,9 @@ if check_password(st):
                 >
                 > <small>What is a session string?</small>
                 > <small>https://docs.telethon.dev/en/stable/concepts/sessions.html#string-sessions</small>
-                """
-                ,unsafe_allow_html=True)
+                """,
+                    unsafe_allow_html=True,
+                )
 
     if st.button("Save"):
         write_config(CONFIG)
