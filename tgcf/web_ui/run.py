@@ -12,12 +12,13 @@ def main():
     os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
     os.environ["STREAMLIT_SERVER_HEADLESS"] = "true"
     with resources.as_file(resource) as path:
-        if not path.is_file():
-            raise FileNotFoundError(f"Web UI entrypoint not found at {path}")
         try:
             subprocess.run(["streamlit", "run", str(path)], check=True)
         except FileNotFoundError as err:
-            raise RuntimeError("streamlit command not found in PATH") from err
+            raise RuntimeError(
+                "streamlit command not found in PATH. "
+                "Install streamlit or ensure it is available in your environment."
+            ) from err
         except subprocess.CalledProcessError as err:
             raise RuntimeError(
                 f"streamlit failed to start web UI (exit code {err.returncode})"
