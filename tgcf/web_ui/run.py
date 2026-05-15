@@ -9,7 +9,7 @@ from tgcf.config import CONFIG
 def main():
     path = resources.files(wu).joinpath("0_👋_Hello.py")
     if not path.is_file():
-        raise FileNotFoundError(f"Web UI entrypoint not found at {path}")
+        raise FileNotFoundError(f"Web UI entrypoint not found at {str(path)}")
     os.environ["STREAMLIT_THEME_BASE"] = CONFIG.theme
     os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
     os.environ["STREAMLIT_SERVER_HEADLESS"] = "true"
