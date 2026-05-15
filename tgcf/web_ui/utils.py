@@ -53,7 +53,7 @@ def apply_theme(st, CONFIG, hidden_container):
         f'\'{{"name":"{theme}"}}\');'
     )
     pages_dir = Path(__file__).resolve().parent / "pages"
-    for page in pages_dir.glob("*.py"):
+    for page in pages_dir.glob("[0-9]*_*.py"):
         page_key = page.stem.split("_", 1)[1]
         script += (
             f"localStorage.setItem('stActiveTheme-/{page_key}-v1', "
