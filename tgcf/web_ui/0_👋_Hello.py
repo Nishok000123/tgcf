@@ -1,7 +1,7 @@
 import streamlit as st
 
-from tgcf.web_ui.utils import hide_st, switch_theme
 from tgcf.config import read_config
+from tgcf.web_ui.utils import apply_base_style, hide_st, switch_theme
 
 CONFIG = read_config()
 
@@ -10,13 +10,19 @@ st.set_page_config(
     page_icon="👋",
 )
 hide_st(st)
-switch_theme(st,CONFIG)
-st.write("# Welcome to tgcf 👋")
+apply_base_style(st)
+switch_theme(st, CONFIG)
+st.markdown("<h1>Welcome to tgcf 👋</h1>", unsafe_allow_html=True)
 
 html = """
-<p align="center">
-<img src = "https://user-images.githubusercontent.com/66209958/115183360-3fa4d500-a0f9-11eb-9c0f-c5ed03a9ae17.png" alt = "tgcf logo"  width=120>
-</p>
+<div class="tgcf-hero">
+  <p align="center">
+    <img src="https://user-images.githubusercontent.com/66209958/115183360-3fa4d500-a0f9-11eb-9c0f-c5ed03a9ae17.png" alt="tgcf logo" width="120">
+  </p>
+  <p align="center" style="font-size:1.05rem;margin-top:0.5rem;">
+    The ultimate tool to automate custom telegram message forwarding.
+  </p>
+</div>
 """
 
 st.components.v1.html(html, width=None, height=None, scrolling=False)
