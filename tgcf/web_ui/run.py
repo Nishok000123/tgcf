@@ -1,9 +1,12 @@
 import os
 import subprocess
 from importlib import resources
+from pathlib import Path
 
 import tgcf.web_ui as wu
 from tgcf.config import CONFIG
+
+package_dir = str(Path(__file__).resolve().parent)
 
 
 def main():
