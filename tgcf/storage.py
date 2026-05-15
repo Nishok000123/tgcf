@@ -11,7 +11,7 @@ class EventUid:
         self.chat_id = event.chat_id
         try:
             self.msg_id = event.id
-        except:  # pylint: disable=bare-except
+        except AttributeError:
             self.msg_id = event.deleted_id
 
     def __str__(self) -> str:

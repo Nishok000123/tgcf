@@ -43,7 +43,7 @@ async def forward_command_handler(event):
         forward = config.Forward(**parsed_args)
         try:
             remove_source(forward.source, config.CONFIG.forwards)
-        except:
+        except ValueError:
             pass
         CONFIG.forwards.append(forward)
         config.from_to = await config.load_from_to(event.client, config.CONFIG.forwards)
