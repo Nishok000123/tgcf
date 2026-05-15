@@ -5,6 +5,7 @@ from importlib import resources
 import tgcf.web_ui as wu
 from tgcf.config import CONFIG
 
+
 def main():
     path = resources.files(wu).joinpath("0_👋_Hello.py")
     os.environ["STREAMLIT_THEME_BASE"] = CONFIG.theme
