@@ -1,10 +1,11 @@
 import os
+from importlib import resources
 from typing import Dict, List
 
-from run import package_dir
 from streamlit.components.v1 import html
 
 from tgcf.config import write_config
+import tgcf.web_ui as wu
 
 
 def get_list(string: str):
@@ -52,12 +53,13 @@ def apply_theme(st, CONFIG, hidden_container):
         f"<script>localStorage.setItem('stActiveTheme-/-v1', "
         f'\'{{"name":"{theme}"}}\');'
     )
-    pages = os.listdir(os.path.join(package_dir, "pages"))
-    for page in pages:
-        script += (
-            f"localStorage.setItem('stActiveTheme-/{page[4:-3]}-v1', "
-            f'\'{{"name":"{theme}"}}\');'
-        )
+    with resources.as_file(resources.files(wu).joinpath("pages")) as pages_dir:
+        pages = os.listdir(pages_dir)
+        for page in pages:
+            script += (
+                f"localStorage.setItem('stActiveTheme-/{page[4:-3]}-v1', "
+                f'\'{{"name":"{theme}"}}\');'
+            )
     script += "parent.location.reload()</script>"
     with hidden_container:  # prevents the layout from shifting
         html(script, height=0, width=0)
