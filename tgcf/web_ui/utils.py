@@ -53,10 +53,9 @@ def apply_theme(st, CONFIG, hidden_container):
         f'\'{{"name":"{theme}"}}\');'
     )
     pages_dir = Path(__file__).resolve().parent / "pages"
-    pages = os.listdir(pages_dir)
-    for page in pages:
+    for page in pages_dir.iterdir():
         script += (
-            f"localStorage.setItem('stActiveTheme-/{page[4:-3]}-v1', "
+            f"localStorage.setItem('stActiveTheme-/{page.name[4:-3]}-v1', "
             f'\'{{"name":"{theme}"}}\');'
         )
     script += "parent.location.reload()</script>"
